@@ -1,7 +1,7 @@
 $(document).ready( function () {
     updateTime();
 
-    setInterval(updateTime(),1000)
+    setInterval(updateTime,1000);
 });
 
 
@@ -14,6 +14,8 @@ function updateTime() {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
     };
 
     $("#datetime").append(dt.toLocaleDateString("en-US", options));
