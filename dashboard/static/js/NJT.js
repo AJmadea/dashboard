@@ -1,9 +1,10 @@
 $(document).ready( function () {
     updateNJT();
+    setInterval(updateNJT, 60_000)
 });
 
 function create_card(bus, description,title) {
-    return `<div class="card text-light bg-dark pt-5">
+    return `<div class="card text-light bg-dark m-3">
         <div class="card-body">
             <h5 class="card-title">${bus}</h5>
             <h6 class="card-subtitle mb-2 text-muted">${title}</h6>
@@ -28,10 +29,11 @@ function updateNJT() {
         success: function (data) {
             
             $("#NJT").empty();
+            $("#NJT").append("NJ Transit Advisories");
 
             if (data.length == 0) {
-                $("#NJT").hide();
-
+                //$("#NJT").hide();
+                $("#NJT").append("No Advisories!");
                 /*$("#weatherCol").addClass("col");
                 $("#weatherCol").removeClass("col-8");*/
             } else { 
