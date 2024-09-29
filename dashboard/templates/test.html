@@ -5,24 +5,22 @@
     <script src="{{ url_for('static', filename='js/weatherChart.js') }}"></script>
     <script src="{{ url_for('static', filename='js/dateTime.js') }}"></script>
     <script src="{{ url_for('static', filename='js/NJT.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/factoid.js') }}"></script>
 {% endblock %}
 
 {% block body %}
-    <div class="background" style="background-image: url('{{backgroundImage}}'); background-size: auto 100%;">
-
-
+    <div class="background" style="background-image: url('{{backgroundImage}}'); background-repeat:no-repeat; background-position: center center; background-color: {{averageColor}};">
         
             <div class="row weather">
-                <div class="col">{{title}}</div>
-                <div id="datetime"></div>
+                <h2>{{title}}</h2>
+                <h4><div id="datetime"></div></h4>
             </div>
 
             <div class="row">
                 <div class="col-8 weather">
                     <div class="row">
                         <div class="row">
-                            <div class="col" id="temperature"></div>
-                            <div class="col" id="weather_code"></div>
+                            <h3 class="col" id="temperature"></h3>
                         </div>
                         <div class="row">
                             <div class="col" id="aqi"></div>
@@ -30,24 +28,22 @@
                         
                         
                     </div>
-                    
+                    <div class="row">
+                        <div class="col">Temperature</div>
+                        <div class="col">Rain % Chance</div>
+                    </div>
                     <div id="weatherChart" class="weatherChartDiv"></div>
                     
                 </div>
                 <div class="col-3 weather" id="NJT"></div>
             </div>
 
-        
-
-        
-
-
-
-
-
-
-
-
+            <div class="row">
+                <div class="col weather">
+                    <h5 id="factoid"></h5>
+                </div>
+                
+            </div>
 
 
     </div>
