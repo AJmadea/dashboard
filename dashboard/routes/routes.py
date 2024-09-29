@@ -2,7 +2,7 @@ from datetime import datetime
 from dashboard import app
 from flask import render_template, send_file
 import requests
-from dashboard import nasa, ImagePicker, Weather
+from dashboard import nasa, ImagePicker, Weather, Pexel
 from dashboard.njtransit import NJTBusXMLScraper
 
 
@@ -13,7 +13,10 @@ def temp():
 
 @app.route("/njt")
 def njt():
-    return NJTBusXMLScraper.parse_njt().to_html()
+    
+    r= NJTBusXMLScraper.parse_njt().to_dict(orient='records')
+    print(r)
+    return r
 
 
 @app.route('/random-image')
@@ -29,8 +32,33 @@ def fact_date():
 
 @app.route("/weather-data")
 def get_weather():
-    return Weather.get_weather_from_file()
+    # hourly_dataframe, current_apparent_temperature, current_precipitation, current_weather_code
+    
+    data = Weather.get_weather_meteo()
+    print(data[0])
+
+    trace1 = {
+        'x': data[0]['date'].tolist(),
+        'y': data[0]['temperature_2m'].tolist(),
+        'text': data[0]['Text'].tolist(),
+        'marker':{
+            'color': data[0]['color'].tolist(),
+            
+            'textposition': 'auto',
+
+        },
+        'type': 'bar'
+    }
+    print(data[0].Description.tolist())
+    dict_data= {'forecast':[trace1], 'temp':int(data[1]), 'precipitation':round(data[2],2), 'weather_code':data[3], 'aqi': int(Weather.get_aqi())}
+    print(dict_data)
+    return dict_data
+
 
 @app.route('/')
 def home():
-    return render_template('test.html')
+    pexelPhoto = Pexel.get_seasonal_image()
+    
+    title=os.getenv("TITLE")
+
+    return render_template('test.html', backgroundImage=pexelPhoto['src']['large2x'], title=title)
