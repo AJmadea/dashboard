@@ -1,0 +1,26 @@
+﻿weather_code,Description,color
+0,Clear sky,black
+1,Mostly Clear,lightgrey
+2,Partly Cloudy,lightgrey
+3,Overcast,grey
+45,Fog,lightgrey
+48,Depositing Rime Fog,grey
+51,Light Drizzle,green
+53,Moderate Drizzle,yellow
+55,Dense Drizzle,orange
+56,Freezing Drizzle: Light,green
+57,Freezing Dense Drizzle,green
+61,Rain: Slight,green
+63,Rain: Moderate,yellow
+65,Heavy Rain,red
+66,Freezing Rain: Light,pink
+67,Freezing Rain: heavy intensity,purple
+71,Snow fall: Slight,lightblue
+73,Snow fall: Moderate,blue
+75,Heavy Snow fall,darkblue
+77,Snow grains,aqua
+80,Slight Rain Shower,yellow
+81,Moderate Rain Shower,orange
+82,Heavy Rain Shower,red
+85,Snow showers slight and heavy,lightblue
+86,Snow Showers Heavy,blue
