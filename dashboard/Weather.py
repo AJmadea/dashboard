@@ -1,3 +1,4 @@
+from datetime import datetime
 import requests, json, os
 
 import openmeteo_requests
@@ -5,6 +6,7 @@ import openmeteo_requests
 import requests_cache
 import pandas as pd
 from retry_requests import retry
+from pytz import timezone
 
 def get_weather_from_api():
     w_api = os.getenv("WEATHER_API_KEY")
@@ -23,7 +25,7 @@ def get_weather_meteo():
     lon=os.getenv("LON")
 
     # Setup the Open-Meteo API client with cache and retry on error
-    cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
+    cache_session = requests_cache.CachedSession('.cache', expire_after = 60)
     retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
     openmeteo = openmeteo_requests.Client(session = retry_session)
 
@@ -46,6 +48,9 @@ def get_weather_meteo():
     # Process first location. Add a for-loop for multiple locations or weather models
     response = responses[0]
 
+    print(f"Timezone {response.Timezone()} {response.TimezoneAbbreviation()}")
+    print(f"Timezone difference to GMT+0 {response.UtcOffsetSeconds()} s")
+
     # Current values. The order of variables needs to be the same as requested.
     current = response.Current()
     current_apparent_temperature = current.Variables(0).Value()
@@ -59,16 +64,20 @@ def get_weather_meteo():
     hourly_prob = hourly.Variables(2).ValuesAsNumpy()
 
     hourly_data = {"date": pd.date_range(
-        start = pd.to_datetime(hourly.Time(), unit = "s", utc = False),
-        end = pd.to_datetime(hourly.TimeEnd(), unit = "s", utc = False),
+        start = pd.to_datetime(hourly.Time(), unit = "s", utc=True),
+        end = pd.to_datetime(hourly.TimeEnd(), unit = "s", utc=True),
         freq = pd.Timedelta(seconds = hourly.Interval()),
         inclusive = "left"
     )}
+
+
+
     hourly_data["temperature_2m"] = hourly_temperature_2m
     hourly_data["weather_code"] = hourly_weather_code
     hourly_data['precipitation_prob']=hourly_prob
 
     hourly_dataframe = pd.DataFrame(data = hourly_data)
+    hourly_dataframe.date = hourly_dataframe.date.dt.tz_convert("America/New_York")
     hourly_dataframe.precipitation_prob = hourly_dataframe.precipitation_prob.astype(float)
     #hourly_dataframe.precipitation_prob=hourly_dataframe.precipitation_prob*100
     hourly_dataframe.precipitation_prob=hourly_dataframe.precipitation_prob.round(2)
@@ -77,6 +86,9 @@ def get_weather_meteo():
 
     hourly_dataframe.temperature_2m = hourly_dataframe.temperature_2m.round(0)
     hourly_dataframe.precipitation_prob = hourly_dataframe.precipitation_prob.round(2)
+
+    hourly_dataframe.date = hourly_dataframe.date.dt.tz_convert(None)
+    hourly_dataframe= hourly_dataframe[hourly_dataframe.date > datetime.now()].copy()
     
     hourly_dataframe['Text'] = hourly_dataframe.temperature_2m.astype(str) + "F ("+hourly_dataframe.precipitation_prob.astype(str)+"%) " + hourly_dataframe.Description
 
