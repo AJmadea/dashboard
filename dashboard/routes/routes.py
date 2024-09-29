@@ -2,6 +2,7 @@ from datetime import datetime
 from dashboard import app
 from flask import render_template, send_file
 import requests
+import os
 from dashboard import nasa, ImagePicker, Weather, Pexel
 from dashboard.njtransit import NJTBusXMLScraper
 
@@ -15,7 +16,7 @@ def temp():
 def njt():
     
     r= NJTBusXMLScraper.parse_njt().to_dict(orient='records')
-    print(r)
+    
     return r
 
 
@@ -35,12 +36,12 @@ def get_weather():
     # hourly_dataframe, current_apparent_temperature, current_precipitation, current_weather_code
     
     data = Weather.get_weather_meteo()
-    print(data[0])
+    
 
     trace1 = {
         'x': data[0]['date'].tolist(),
         'y': data[0]['temperature_2m'].tolist(),
-        'text': data[0]['Text'].tolist(),
+        'text': data[0]['temperature_2m'].tolist(),
         'marker':{
             'color': data[0]['color'].tolist(),
             
@@ -49,16 +50,27 @@ def get_weather():
         },
         'type': 'bar'
     }
+
+    trace2 ={
+        'x': data[0]['date'].tolist(),
+        'y': data[0]['precipitation_prob'].tolist(),
+        'text': data[0]['precipitation_prob'].tolist(),
+        'type':'line',
+        'xaxis': 'x2',
+        'yaxis': 'y2',
+        'title':"Rain % Chance"
+    }
+
     print(data[0].Description.tolist())
-    dict_data= {'forecast':[trace1], 'temp':int(data[1]), 'precipitation':round(data[2],2), 'weather_code':data[3], 'aqi': int(Weather.get_aqi())}
-    print(dict_data)
+    dict_data= {'forecast':[trace1,trace2], 'temp':int(data[1]), 'precipitation':round(data[2],2), 'weather_code':data[3], 'aqi': int(Weather.get_aqi())}
+    
     return dict_data
 
 
 @app.route('/')
 def home():
     pexelPhoto = Pexel.get_seasonal_image()
-    
+
     title=os.getenv("TITLE")
 
-    return render_template('test.html', backgroundImage=pexelPhoto['src']['large2x'], title=title)
+    return render_template('test.html', backgroundImage=pexelPhoto['src']['large2x'], title=title, averageColor=pexelPhoto['avg_color'])
