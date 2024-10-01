@@ -35,6 +35,6 @@ def get_random_image():
     print(potentialImages)
     randomImage = potentialImages[np.random.randint(len(potentialImages))]
     print(randomImage)
-    image = os.path.join('static','images','randomImages',str(datetime.now().month), randomImage)
-    print(image)
-    return image
+    image = os.path.join('images','randomImages',str(datetime.now().month), randomImage)
+    image=image.replace("\\","/")
+    return image, randomImage
