@@ -23,7 +23,7 @@ def get_seasonal_image():
 
     dt=datetime.now().date()
     season = season_map[dt.month]
-    res=requests.get(f"https://api.pexels.com/v1/search?query= {season} scenery {dt.strftime('%B')}&per_page=32&orientation=landscape&size=large", headers=headers)
+    res=requests.get(f"https://api.pexels.com/v1/search?query={season} scenery {dt.strftime('%B')}&per_page=32&orientation=landscape&size=large", headers=headers)
     res.close()
     
     return res.json()['photos'][dt.day]
