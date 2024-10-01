@@ -36,11 +36,11 @@ def get_weather_meteo():
     params = {
         "latitude": lat,
         "longitude": lon,
-        "current": ["apparent_temperature", "precipitation", "weather_code"],
+        "current": ["temperature_2m", "precipitation", "weather_code"],
         "hourly": ["temperature_2m", "weather_code", "precipitation_probability"],
         "temperature_unit": "fahrenheit",
         "precipitation_unit": "inch",
-        "forecast_days": 1,
+        "forecast_days": 2,
         "timezone": "America/New_York"
     }
     responses = openmeteo.weather_api(url, params=params)
@@ -70,8 +70,6 @@ def get_weather_meteo():
         inclusive = "left"
     )}
 
-
-
     hourly_data["temperature_2m"] = hourly_temperature_2m
     hourly_data["weather_code"] = hourly_weather_code
     hourly_data['precipitation_prob']=hourly_prob
@@ -79,7 +77,7 @@ def get_weather_meteo():
     hourly_dataframe = pd.DataFrame(data = hourly_data)
     hourly_dataframe.date = hourly_dataframe.date.dt.tz_convert("America/New_York")
     hourly_dataframe.precipitation_prob = hourly_dataframe.precipitation_prob.astype(float)
-    #hourly_dataframe.precipitation_prob=hourly_dataframe.precipitation_prob*100
+    
     hourly_dataframe.precipitation_prob=hourly_dataframe.precipitation_prob.round(2)
 
     hourly_dataframe= hourly_dataframe.merge(weatherCodes)
@@ -90,7 +88,7 @@ def get_weather_meteo():
     hourly_dataframe.date = hourly_dataframe.date.dt.tz_convert(None)
     hourly_dataframe= hourly_dataframe[hourly_dataframe.date > datetime.now()].copy()
     
-    hourly_dataframe['Text'] = hourly_dataframe.temperature_2m.astype(str) + "F ("+hourly_dataframe.precipitation_prob.astype(str)+"%) " + hourly_dataframe.Description
+    hourly_dataframe['Text'] = hourly_dataframe.temperature_2m.astype(str) + "F ("+hourly_dataframe.precipitation_prob.astype(str)+"%) "
 
     hourly_dataframe.date = pd.to_datetime(hourly_dataframe.date)
     hourly_dataframe.date = hourly_dataframe.date.dt.strftime("%H %P")

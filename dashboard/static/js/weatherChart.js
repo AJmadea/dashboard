@@ -1,6 +1,6 @@
 $(document).ready( function () {
     getWeather();
-    setInterval(updateWeather(), 420_000);
+    setInterval(updateWeather, 420_000);
 });
 
 function get_color(number) {
@@ -54,10 +54,12 @@ function updateWeather() {
 
             _max *= 1.1;
             _min *= 0.8;
-
+            
+            let changes= data["changes"];
+            
             layout = {
                 
-                grid: {rows: 1, columns: 2, pattern: 'independent'},
+                shapes: changes,
                 paper_bgcolor:'rgba(5,5,5,0.2)',
                 plot_bgcolor:'rgba(0,0,0,0)',
                 xaxis: {
@@ -81,32 +83,7 @@ function updateWeather() {
                       showexponent: 'all'
 
                   },
-                  yaxis2:{
-                    showgrid: false,
-                    zeroline: true,
-                    showline: true,
-                    range: [0, 100],
-                    
-                    gridwidth: 2,
-                
-                    zerolinewidth: 4,
-                    
-                    linewidth: 6,
-                    titlefont: {
-                        family: 'Arial, sans-serif',
-                        size: 18,
-                        color: 'white'
-                      },
-                      showticklabels: true,
-                      tickangle: 45,
-                      tickfont: {
-                        family: 'Old Standard TT, serif',
-                        size: 14,
-                        color: 'white'
-                      },
-                      exponentformat: 'e',
-                      showexponent: 'all'
-                  },
+
                   yaxis: {
                     showgrid: false,
                     zeroline: true,
@@ -181,10 +158,13 @@ function getWeather() {
 
             _max *= 1.1;
             _min *= 0.8;
+            
+            let changes= data["changes"];
+
 
             layout = {
                 
-                grid: {rows: 1, columns: 2, pattern: 'independent'},
+                shapes: changes,
                 paper_bgcolor:'rgba(5,5,5,0.2)',
                 plot_bgcolor:'rgba(0,0,0,0)',
                 xaxis: {
@@ -208,32 +188,7 @@ function getWeather() {
                       showexponent: 'all'
 
                   },
-                  yaxis2:{
-                    showgrid: false,
-                    zeroline: true,
-                    showline: true,
-                    range: [0, 100],
-                    
-                    gridwidth: 2,
-                
-                    zerolinewidth: 4,
-                    
-                    linewidth: 6,
-                    titlefont: {
-                        family: 'Arial, sans-serif',
-                        size: 18,
-                        color: 'white'
-                      },
-                      showticklabels: true,
-                      tickangle: 45,
-                      tickfont: {
-                        family: 'Old Standard TT, serif',
-                        size: 14,
-                        color: 'white'
-                      },
-                      exponentformat: 'e',
-                      showexponent: 'all'
-                  },
+
                   yaxis: {
                     showgrid: false,
                     zeroline: true,
