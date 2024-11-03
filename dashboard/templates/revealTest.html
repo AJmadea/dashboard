@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+{% endblock %}
+
+{% block body %}
+<script src="{{ url_for('static', filename='js/weatherChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dateTime.js') }}"></script>
+<script src="{{ url_for('static', filename='js/NJT.js') }}"></script>
+<script src="{{ url_for('static', filename='js/factoid.js') }}"></script>
+
+
+    <div class="reveal">
+        <div class="slides">
+          <section data-background-image="{{url}}" data-auto-animate>
+            <h2>{{title}}</h2>
+            <h4><div id="datetime"></div></h4>
+          </section>
+          <section data-background-image="{{url}}" data-auto-animate>
+            <div class="weather">
+                <div class="row">
+                  <h3 class="col" id="temperature"></h3>
+                </div>
+                <div class="row">
+                  <div class="col" id="aqi"></div>
+                </div>
+            </div>
+                
+            <div class="weather row row-cols-2 row-cols-4" id="forecast"></div>
+            <div id="heatmapRain"></div>
+            
+          </section>
+          <section data-background-image="{{url}}" id="njtAdv" data-auto-animate>
+            <div>NJ Transit Advisories</div>
+            <div class="weather row row-cols-2 row-cols-4" id="NJT"></div>
+          </section>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='dist/reveal.js') }}"></script>
+    <script>
+        Reveal.initialize({
+          autoSlide: 5000,
+          loop: true,
+        });
+    </script>
+
+{% endblock %}

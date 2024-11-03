@@ -1,0 +1,80 @@
+
+
+.background {
+    width: 100%;
+    height: 100%;
+    
+}
+
+html, body {
+    height:100%;
+    
+} 
+
+.lg {
+    
+    width: 100%;
+    height: 100%;
+    
+}
+
+.card-title {
+    font-size: 1.75rem;
+
+}
+
+.ct2 {
+    font-size: 1.5rem;
+}
+
+.list-group-item {
+    font-size: 1rem;
+}
+
+.card-subtitle {
+    font-size: 1rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    
+}
+
+
+.weather {
+    background-color: rgba(0, 0, 0, 0.7);
+    
+    border-radius: 2rem;
+    color: white;
+    margin: 5px;
+    text-align:center;
+}
+
+.randomImage {
+    width: 100%;
+    height:auto;
+}
+
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.lightorange {
+    background-color: orange;
+}
+
+.orange {
+    background-color: orangered;
+}
+
+.red {
+    background-color: red;
+}
+
+.purple {
+    background-color: purple;
+}

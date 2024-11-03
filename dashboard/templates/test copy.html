@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+    
+    <script src="{{ url_for('static', filename='js/dateTime.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/hike.js') }}"></script>
+
+{% endblock %}
+
+{% block body %}
+    <div class="background">
+        
+            <div class="row weather">
+                <h2>{{title}}</h2>
+                <h4><div id="datetime"></div></h4>
+            </div>
+
+            <div class="row">
+                <div class="col-6 weather" id="pictureCol" style="background-image: url('{{ url_for('static', filename=randomImage) }}'); background-repeat:no-repeat; background-position: center center; background-size: contain;">
+                    <div class="weather">Image Was Taken At: {{date}}</div>
+                </div>
+
+                <div class="col-5 weather">
+                    <div class="row">
+                        <h5 id="totalHiking"></h5>
+                    </div>
+                    <div class="row">
+                        <div id="hikingMap"></div>
+                    </div>
+                </div>
+                
+                    
+
+                
+            </div>
+
+    </div>
+
+    
+
+{% endblock %}

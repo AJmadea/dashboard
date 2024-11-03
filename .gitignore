@@ -1,0 +1,7 @@
+venv/
+
+/dashboard/static/images/randomImages/
+/instance/*
+
+*.pyc
+__pycache__/
