@@ -48,9 +48,6 @@ def get_weather_daily_meteo():
     # Process first location. Add a for-loop for multiple locations or weather models
     response = responses[0]
 
-    print(f"Timezone {response.Timezone()} {response.TimezoneAbbreviation()}")
-    print(f"Timezone difference to GMT+0 {response.UtcOffsetSeconds()} s")
-
     # Current values. The order of variables needs to be the same as requested.
     current = response.Current()
     current_apparent_temperature = current.Variables(0).Value()
@@ -92,9 +89,6 @@ def get_weather_daily_meteo():
 
     hourly_dataframe.date = pd.to_datetime(hourly_dataframe.date)
     hourly_dataframe.date = hourly_dataframe.date.dt.strftime("%H %P")
-    
-    hourly_dataframe.to_csv('HOurlyWeather.csv')
-    print(hourly_dataframe)
 
     # Process daily data. The order of variables needs to be the same as requested.
     daily = response.Daily()
@@ -126,7 +120,6 @@ def get_weather_daily_meteo():
     daily_dataframe.precipitation_sum = daily_dataframe.precipitation_sum.astype(str)
 
     daily_dataframe = daily_dataframe.merge(weatherCodes, how='left')
-    print(daily_dataframe)
 
     return daily_dataframe, current_apparent_temperature, current_precipitation, weatherCodes[weatherCodes.weather_code==current_weather_code].Description.tolist()[0], hourly_dataframe
 
