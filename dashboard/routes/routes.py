@@ -10,7 +10,6 @@ import pandas as pd
 @app.route('/nasa')
 def temp():
     hdurl=nasa.get_apod()
-    print(hdurl)
     return hdurl
 
 @app.route("/njt")
