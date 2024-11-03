@@ -10,6 +10,7 @@ import pandas as pd
 @app.route('/nasa')
 def temp():
     hdurl=nasa.get_apod()
+    print(hdurl)
     return hdurl
 
 @app.route("/njt")
@@ -47,7 +48,8 @@ def fact_date():
 @app.route("/rt")
 def rt():
     pexelPhoto = Pexel.get_seasonal_image()
-    return render_template('revealTest.html', url=pexelPhoto['src']['large2x'], title="Maywood Boys")
+    nasa=temp()
+    return render_template('revealTest.html', url=pexelPhoto['src']['large2x'], title="Maywood Boys", hdurl=nasa["hdurl"], nasaTitle=nasa["title"], nasaDescription=nasa["explanation"])
 
 @app.route("/weather-data")
 def get_weather():
