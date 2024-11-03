@@ -41,6 +41,10 @@ html, body {
 }
 
 
+.small {
+    font-size: 1rem !important;
+}
+
 .weather {
     background-color: rgba(0, 0, 0, 0.7);
     
