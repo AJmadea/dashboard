@@ -8,15 +8,7 @@ import pandas as pd
 from retry_requests import retry
 from pytz import timezone
 
-def get_weather_from_api():
-    w_api = os.getenv("WEATHER_API_KEY")
-    res=requests.get(f"http://api.weatherstack.com/current?access_key={w_api}&query=Maywood New Jersey&units=f")
-    return res.json()
 
-def get_weather_from_file():
-    with open("weatherDataSample.json",'r') as f:
-        weatherData=json.load(f)
-    return weatherData
 
 weatherCodes=pd.read_csv("dashboard/static/WeatherCodes.csv")
 
@@ -24,8 +16,11 @@ def get_weather_daily_meteo():
     lat=os.getenv("LAT")
     lon=os.getenv("LON")
 
-    lat,lon=(28.51339572561113, -81.3767633912537)
-    lat,lon=(41.850491463149545, -87.90756066948084)
+    #Orlando, FL
+    #lat,lon=(28.51339572561113, -81.3767633912537)
+
+    # Chicago-ish
+    #lat,lon=(41.850491463149545, -87.90756066948084)
 
     # Setup the Open-Meteo API client with cache and retry on error
     cache_session = requests_cache.CachedSession('.cache', expire_after = 60)
