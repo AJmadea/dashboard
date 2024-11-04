@@ -9,13 +9,16 @@
 <script src="{{ url_for('static', filename='js/dateTime.js') }}"></script>
 <script src="{{ url_for('static', filename='js/NJT.js') }}"></script>
 <script src="{{ url_for('static', filename='js/factoid.js') }}"></script>
+<script src="{{ url_for('static', filename='js/pi.js') }}"></script>
 
 
     <div class="reveal">
         <div class="slides">
           <section data-background-image="{{url}}" data-auto-animate>
-            <h2>{{title}}</h2>
-            <h4><div id="datetime"></div></h4>
+            <div class="weather">
+              <h2>{{title}}</h2>
+              <h4><div id="datetime"></div></h4>
+            </div>
           </section>
           <section data-background-image="{{url}}" data-auto-animate>
             <div class="weather">
@@ -34,6 +37,12 @@
           <section data-background-image="{{url}}" id="njtAdv" data-auto-animate>
             <div>NJ Transit Advisories</div>
             <div class="weather row row-cols-2 row-cols-4" id="NJT"></div>
+          </section>
+          <section data-background-image="{{url}}" data-auto-animate>
+            <div class="weather" id="factoid"></div>
+          </section>
+          <section data-background-image="{{url}}" data-auto-animate>
+            <div class="weather" id="pi"></div>
           </section>
           <section data-background-image="{{hdurl}}" data-auto-animate>
             <h3>{{nasaTitle}}</h3>

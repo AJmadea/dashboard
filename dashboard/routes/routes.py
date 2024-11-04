@@ -37,6 +37,13 @@ def bf():
 def get_random_image():
     return ImagePicker.get_random_image()
 
+@app.route('/get-temperature')
+def temperature():
+    from gpiozero import CPUTemperature
+
+    cpu = CPUTemperature()
+    return str(round(cpu.temperature * 9/5 + 32,2))
+
 @app.route('/fact-date')
 def fact_date():
     now=datetime.now()
