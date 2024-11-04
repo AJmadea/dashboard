@@ -88,7 +88,7 @@ def get_weather_daily_meteo():
     hourly_dataframe['Text'] = hourly_dataframe.temperature_2m.astype(str) + "F ("+hourly_dataframe.precipitation_prob.astype(str)+"%) "
 
     hourly_dataframe.date = pd.to_datetime(hourly_dataframe.date)
-    hourly_dataframe.date = hourly_dataframe.date.dt.strftime("%H %P")
+    #hourly_dataframe.date = hourly_dataframe.date.dt.strftime("%H %P")
 
     # Process daily data. The order of variables needs to be the same as requested.
     daily = response.Daily()
@@ -120,7 +120,7 @@ def get_weather_daily_meteo():
     daily_dataframe.precipitation_sum = daily_dataframe.precipitation_sum.astype(str)
 
     daily_dataframe = daily_dataframe.merge(weatherCodes, how='left')
-
+    print(hourly_dataframe)
     return daily_dataframe, current_apparent_temperature, current_precipitation, weatherCodes[weatherCodes.weather_code==current_weather_code].Description.tolist()[0], hourly_dataframe
 
 
