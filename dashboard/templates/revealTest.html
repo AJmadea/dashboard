@@ -2,6 +2,7 @@
 
 {% block head %}
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+  <meta http-equiv="refresh" content="2000000"> 
 {% endblock %}
 
 {% block body %}
@@ -45,8 +46,14 @@
             <div class="weather" id="pi"></div>
           </section>
           <section data-background-image="{{hdurl}}" data-auto-animate>
-            <h3>{{nasaTitle}}</h3>
-            <p class="small">{{nasaDescription}}</p>
+            <div class="weather">
+              <h3>{{nasaTitle}}</h3>
+              <p class="small">{{nasaDescription}}</p>
+            </div>
+          </section>
+          <section>
+            <img class="r-stretch" src=".{{ url_for('static', filename=randomImage) }}" alt=""> 
+            <h6 class="weather">{{date}}</h6>
           </section>
         </div>
     </div>
