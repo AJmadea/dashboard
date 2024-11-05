@@ -26,14 +26,10 @@ function createCard(forecast_day) {
             <p class="card-title ct2">${forecast_day['date']}<br></p>
             
             <div class="col-4"><div class="small-box" background-color="${forecast_day['color']}"></div></div>
-            <div class="col-8"><p class="card-text">${forecast_day['Description']}</p></div>
-            
+            <p class="card-text">${forecast_day['Description']}</p>
+            <p class="card-text">${forecast_day['precipitation_max']}% ${forecast_day['precipitation_sum']} In.</p>
+            <p class="card-text">${forecast_day['temperature_2m_max']}F - ${forecast_day['temperature_2m_min']}F</p>
         
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item text-light bg-dark">${forecast_day['precipitation_max']}% ${forecast_day['precipitation_sum']} In.</li>
-                <li class="list-group-item text-light bg-dark">${forecast_day['temperature_2m_max']}F - ${forecast_day['temperature_2m_min']}F</li>
-            </ul>
-
         </div>
     </div>`
     
