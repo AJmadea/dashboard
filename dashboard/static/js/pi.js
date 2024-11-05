@@ -1,10 +1,17 @@
+let date = new Date();
+
 $(document).ready( function () {
     updateTemp();
 
-    setInterval(updateTemp, 2000);
+    setInterval(updateTemp, 20000);
 });
 
 function updateTemp() {
+    let current= new Date();
+    if ((date.getTime() - current.getTime() >= 8) || date.getDay()!=current.getDay()) {
+        location.reload();
+    }
+
     $.ajax({
 
         // Our sample url to make request 
