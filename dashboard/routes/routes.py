@@ -55,7 +55,12 @@ def fact_date():
 def rt():
     pexelPhoto = Pexel.get_seasonal_image()
     nasa=temp()
-    return render_template('revealTest.html', url=pexelPhoto['src']['large2x'], title="Maywood Boys", hdurl=nasa["hdurl"], nasaTitle=nasa["title"], nasaDescription=nasa["explanation"])
+    rImage, _file=get_random_image()
+
+    dt=datetime.strptime(_file[:8], "%Y%m%d")
+    dt = dt.strftime("%B %d, %Y")
+    return render_template('revealTest.html', randomImage=rImage, date=dt,
+        url=pexelPhoto['src']['large2x'], title="Maywood Boys", hdurl=nasa["hdurl"], nasaTitle=nasa["title"], nasaDescription=nasa["explanation"])
 
 @app.route("/weather-data")
 def get_weather():
@@ -75,14 +80,10 @@ def get_weather():
     
     #hourly_data.Hour = hourly_data.Hour.astype(str)
     hourly_data.date = hourly_data.date.astype(str)
-    print(hourly_data)
-
 
     hourly_data = hourly_data.pivot(index='date',columns='Hour', values='precipitation_prob')
     hourly_data = hourly_data.fillna(0)
-
     hourly_data.columns = [x.strftime("%I%p") for x in hourly_data.columns.tolist()]
-
     
     opacities = [
         [0, 'rgba(0, 80, 0, 0.0)'], 
