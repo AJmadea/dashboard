@@ -59,7 +59,8 @@ def rt():
 
     dt=datetime.strptime(_file[:8], "%Y%m%d")
     dt = dt.strftime("%B %d, %Y")
-    return render_template('revealTest.html', randomImage=rImage, date=dt,
+
+    return render_template('revealTest.html', randomImage=rImage, date=dt, alt=pexelPhoto['alt'],
         url=pexelPhoto['src']['large2x'], title="Maywood Boys", hdurl=nasa["hdurl"], nasaTitle=nasa["title"], nasaDescription=nasa["explanation"])
 
 @app.route("/weather-data")
@@ -83,6 +84,7 @@ def get_weather():
 
     hourly_data = hourly_data.pivot(index='date',columns='Hour', values='precipitation_prob')
     hourly_data = hourly_data.fillna(0)
+
     hourly_data.columns = [x.strftime("%I%p") for x in hourly_data.columns.tolist()]
     
     opacities = [
