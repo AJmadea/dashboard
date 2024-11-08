@@ -7,10 +7,7 @@ $(document).ready( function () {
 });
 
 function updateTemp() {
-    let current= new Date();
-    if ((date.getTime() - current.getTime() >= 8) || date.getDay()!=current.getDay()) {
-        location.reload();
-    }
+
 
     $.ajax({
 
