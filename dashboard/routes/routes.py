@@ -51,7 +51,7 @@ def fact_date():
     res.close()
     return res.text
 
-@app.route("/rt")
+@app.route("/")
 def rt():
     pexelPhoto = Pexel.get_seasonal_image()
     nasa=temp()
@@ -144,7 +144,7 @@ def get_weather():
     return dict_data
 
 
-@app.route('/')
+@app.route('/old_title')
 def home():
     pexelPhoto = Pexel.get_seasonal_image()
 
