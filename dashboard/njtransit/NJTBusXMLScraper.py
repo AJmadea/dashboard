@@ -35,6 +35,17 @@ def parse_njt():
     df= df[df.DateTime >= (datetime.now() - timedelta(days=7))]
     df.sort_values(by="DateTime", ascending=False, inplace=True)
     
+    old_adv = pd.read_csv('Advisories.csv')
+
+    old_adv = old_adv.merge(df, on='Title', how='right', indicator=True)
+    old_adv=old_adv[old_adv._merge=='right_only'].copy()
+    print(old_adv)
+
+    new_advisories = df[df.Title.isin(old_adv.Title.unique())].copy()
+
+
+    new_advisories.to_csv('Advisories.csv', index=False, mode='a', header=False)
+
     df=df[df.Bus.isin({772,168,751,755,752})].copy()
 
     return df
